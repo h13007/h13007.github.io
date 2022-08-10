@@ -1,0 +1,697 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="h13007">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、CentOS系统  Red Hat公司是全球著名开源解决方案供应商，最为人所熟知的产品莫过于RHEL系统。该产品遵循GPL，因此可以免费使用，但红帽公司提供的服务不免费。  为了能够使用一款稳定且具有一定服务支持的操作系统，CentOS应运而生，其诞生之初就是作为RHEL产品的下游，确保在RHEL发布版本后一段时间（一般为6个月左右），  依据RHEL开放源码编译而出，此时的CentOS系统相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rocky与Ubuntu系统安装">
+<meta property="og:url" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Hala Madrid">
+<meta property="og:description" content="1、CentOS系统  Red Hat公司是全球著名开源解决方案供应商，最为人所熟知的产品莫过于RHEL系统。该产品遵循GPL，因此可以免费使用，但红帽公司提供的服务不免费。  为了能够使用一款稳定且具有一定服务支持的操作系统，CentOS应运而生，其诞生之初就是作为RHEL产品的下游，确保在RHEL发布版本后一段时间（一般为6个月左右），  依据RHEL开放源码编译而出，此时的CentOS系统相">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/git.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/rocky.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm1.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm2.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm3.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm4.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm5.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm6.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm7.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm8.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm9.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm10.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm11.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm12.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm13.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm14.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm15.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm16.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm17.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm18.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm19.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm20.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm21.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm22.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm23.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm24.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm25.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm26.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm27.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm28.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm29.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm30.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm31.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm32.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm33.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm34.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm35.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm36.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm37.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm38.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u1.png">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u2.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u3.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u4.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u5.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u7.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u8.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u9.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u10.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u11.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u12.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u13.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u14.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u15.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u16.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u17.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u18.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u19.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u20.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u21.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u22.PNG">
+<meta property="article:published_time" content="2022-08-01T02:04:04.000Z">
+<meta property="article:modified_time" content="2022-08-01T07:16:49.327Z">
+<meta property="article:author" content="h13007">
+<meta property="article:tag" content="Linux基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/git.png">
+  
+  
+  <title>Rocky与Ubuntu系统安装 - Hala Madrid</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MxosvEI13d4QpG8zazmhlK9c-gzGzoHsz","app_key":"GzVmorGDpzb2flbFAEDfKVbk","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>h13007</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                目录
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Rocky与Ubuntu系统安装">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-01 02:04" pubdate>
+        2022年8月1日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Rocky与Ubuntu系统安装</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1、CentOS系统"><a href="#1、CentOS系统" class="headerlink" title="1、CentOS系统"></a>1、CentOS系统</h1><p>  Red Hat公司是全球著名开源解决方案供应商，最为人所熟知的产品莫过于RHEL系统。该产品遵循GPL，因此可以免费使用，但红帽公司提供的服务不免费。<br>  为了能够使用一款稳定且具有一定服务支持的操作系统，CentOS应运而生，其诞生之初就是作为RHEL产品的下游，确保在RHEL发布版本后一段时间（一般为6个月左右），<br>  依据RHEL开放源码编译而出，此时的CentOS系统相对稳定且针对产品漏洞有了一定修补，更适合生产环境。</p>
+<h1 id="2、CentOS的转变"><a href="#2、CentOS的转变" class="headerlink" title="2、CentOS的转变"></a>2、CentOS的转变</h1><p>  CentOS在2014年宣布加入RedHat，CentOS的几个核心团队入职Red Hat专门负责其开发。并在Red Hat在理事会中占了三席，但是其社区属性得到保留，<br>  交易结果是一部分包括将CentOS商标和IP转移到Red Hat，公司的性质也就随之有所变化。至2018年10月29日，IBM以300多亿美金收购RedHat，承诺Red Hat忠于其开源根基不会改变，<br>  声称” Red Hat对开源的使命和坚定承诺将保持不变。”。然而在2020年12月8日，RedHat宣布停止开发CentOS8，且提前在2年内终结技术支持，转而开发CentOS的变体，<br>  称之为“CentOS Stream”。这样的操作影响是深远的：CentOS从原有RHEL系统的下游，转为上游，可以说其与RHEL的原有关系做了对调，承担了更多的新功能测试，或者称之为Beta<br>  版RHEL更合适，这样开发与维护能力较弱的用户，再度使用CentOS就存在很大的风险。</p>
+<h1 id="3、Rocky的诞生"><a href="#3、Rocky的诞生" class="headerlink" title="3、Rocky的诞生"></a>3、Rocky的诞生</h1><p>  在RedHat进行了该声明之后，原CentOS创始人发布呼吁，召集了一批技术人员，计划以创建一个新的操作系统项目来取代CentOS。最后用已故的CentOS创始人之一的Rocky命名。<br>  Rocky linux与RHEL完全兼容，目前已经创建了Github Rocky Linux 项目组织（github.com/rocky-linux/rocky）以及官网rockylinux.org</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/git.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/rocky.png" srcset="/img/loading.gif" lazyload class="">
+<p>  注：为防止RedHat改CentOS为上游后，对已有资产产生安全影响，近两年非常多的用户已经开始去CentOS化，包括阿里云的产品上，已经将CentOS8等镜像移除。虽然CentOS名义上<br>  已经死亡，但Rocky会继承CentOS的“遗志”，继续传递CentOS的精神。（由于Rocky至今诞生仅两年半多，但相信在CentOS7后，会是平替CentOS的最佳选择）</p>
+<h1 id="3-1、Rocky系统安装"><a href="#3-1、Rocky系统安装" class="headerlink" title="3.1、Rocky系统安装"></a>3.1、Rocky系统安装</h1><p>  目前通过官网可以看到，Rocky已经发布到9.0的版本:</p>
+
+<p>  完成下载后，就可以加载镜像的方式进行安装。本次安装，使用Vmware Workstation进行操作</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm1.png" srcset="/img/loading.gif" lazyload class="">
+<p>  创建虚拟机</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm2.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择自定义</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm3.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  按照默认</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm4.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择稍后安装操作系统</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm5.png" srcset="/img/loading.gif" lazyload class="">
+<p>  客户机操作系统选择 Linux ，这里先选择CentOS8 64位</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm6.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  设置虚拟机名称以及安装在本机的位置</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm7.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择处理器CPU数量</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm8.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择虚拟机内存</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm9.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  网络类型选择默认NAT</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm10.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  I/O控制器保持默认</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm11.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  磁盘类型保持默认</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm12.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  创建新磁盘</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm13.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择磁盘大小后，建议选择将磁盘文件存储为单个文件</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm14.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  保持默认系统生成的磁盘文件，点击下一步</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm15.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  单击完成，完成虚拟机的创建</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm16.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  该界面为创建好的虚拟机</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm17.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  此时系统没有安装，因此需要进行系统的挂载以及安装，选择编辑虚拟机设置<br>  在虚拟机设置里，选择硬件CD/DVD，右侧选择使用ISO映像文件，点击浏览后，将目录路径选择到下载的Rocky9镜像的目录下，选择该镜像并点击打开</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm18.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  在开机后，进入到安装界面，此时有三个选择，分别是安装、测试以及安装、故障排查三个选项，优选安装</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm19.png" srcset="/img/loading.gif" lazyload class="">
+<p>  正在加载中</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm20.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  进行语言选择，默认英语，这里其实可以看到Rocky与RHEL以及CentOS安装是一样的</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm21.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择安装目的路径</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm22.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  保持默认分区，选择Done</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm23.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择软件安装项</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm24.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  这里个人选择了最小化安装，图形化安装占用内存较大</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm25.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  随后是时区选择，这里选择亚洲/上海</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm26.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  最后设置ROOT账号密码</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm27.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  除了设置密码，可以看到这里有个选择，如果不勾选，后续登陆后的root账户没有SSH权限。在这里我没有勾选，计划在安装完成后修改文件解决</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm28.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  最后点击开始安装</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm29.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  静待安装进行</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm30.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  已经安装完成，选择reboot重启系统加载</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm31.png" srcset="/img/loading.gif" lazyload class="">
+<p>  重启后可以看到操作系统的版本</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm32.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  输入账号密码进行登录</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm33.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  可以看到SSH远程登录通过root账号，系统是会拒绝的</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm34.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  我们通过直接登录虚拟机，编辑/etc/ssh/sshd_config文件</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm35.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  将#PermitRootLogin prohibit-password进行修改</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm36.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  改为PermitRootLogin yes，随后保存退出。（注：Rocky9与Ubuntu在默认root用户无法ssh登录的情况下，修改方法一样）</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm37.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  重启sshd服务</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/vm38.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  此时就可以使用root账户ssh登录</p>
+<h1 id="4、Ubuntu系统"><a href="#4、Ubuntu系统" class="headerlink" title="4、Ubuntu系统"></a>4、Ubuntu系统</h1><p>  提及Ubuntu系统就不得不说一下Debian系统。该系统是从 1993 年由 Ian Murdock(伊恩·默多克) 发起的，名字是由 Debian 的创始人<br>  Ian Murdock (伊恩·默多克) 和他的妻子Debra(黛布拉) 两人的名字组合而成的。<br>  早期Debian有三个版本：不稳定版、测试版、稳定版。这三个分支各具特点，其中不稳定版用于最新功能的开发、测试，待使用相对稳定后<br>  转为测试版，进而至稳定版。Ubuntu则是在不稳定版的分支上发展而来。<br>  与Debian的不同在于它每6个月会发布一个新版本，Ubuntu的目标在于为一般用户提供一个最新的、同时又相当稳定的主要由自由软件构建而成的操作系统</p>
+<h1 id="5、Ubuntu的发展"><a href="#5、Ubuntu的发展" class="headerlink" title="5、Ubuntu的发展"></a>5、Ubuntu的发展</h1><p>  Ubuntu第一个版本是发布于 2004 年10月20日，ubuntu的版本号有个固定的特征，其使用一个形容词和一个动物名称组成，并且形容词和名词的首字母都是一致的，<br>  Ubuntu版本的命名规则是根据正式版发布的年月命名，我们可以很容易的从版本号码就知道正式发布的时间。<br>  每两年的 4 月份，都会推出一个长期支持版本（LTS），其支持期长达五年，而非 LTS 版本的支持期通常只有半年。</p>
+<h1 id="6、Ubuntu的机遇"><a href="#6、Ubuntu的机遇" class="headerlink" title="6、Ubuntu的机遇"></a>6、Ubuntu的机遇</h1><p>  Ubuntu系统对于桌面系统的推广有着无语伦比的贡献，同时因为针对云服务商的技术架构内核和系统更新很快，因此是目前主流的操作系统之一，同时因为RedHat对于<br>  CentOS的改变，Ubuntu将会进一步抢占原有CentOS的市场，正如Ubuntu官网所述：（<a target="_blank" rel="noopener" href="https://ubuntu.com/blog/migrating-to-ubuntu-lts-six-facts-for-centos-users%EF%BC%89">https://ubuntu.com/blog/migrating-to-ubuntu-lts-six-facts-for-centos-users）</a></p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u1.png" srcset="/img/loading.gif" lazyload class="">
+<p>  事实 1. 开发人员更喜欢 Ubuntu<br>  事实 2. Ubuntu LTS 是可预测的、稳定的和安全的<br>  事实 3. Ubuntu 没有强制订阅<br>  事实 4. Ubuntu LTS 通过透明的每台机器定价提供企业级支持<br>  事实 5. Ubuntu 提供多云体验<br>  事实 6. Ubuntu 为大型基础设施提供动力</p>
+<h1 id="6-1、Ubuntu体统安装"><a href="#6-1、Ubuntu体统安装" class="headerlink" title="6.1、Ubuntu体统安装"></a>6.1、Ubuntu体统安装</h1><p>  本次安装，使用Vmware，系统选择为服务器版本，登录官网<a target="_blank" rel="noopener" href="https://cn.ubuntu.com/download/server/step1">https://cn.ubuntu.com/download/server/step1</a></p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u2.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  虚拟机的准备与Rocky一致，这里不再赘述，其中在选择操作系统的时候，略有不同，应选择为Ubuntu 64位</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u3.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  依据Rocky的经验，选择完系统后，我们得到如下：</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u4.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  点击开启虚拟机</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u5.PNG" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u7.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择默认英文部署</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u8.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择继续不升级，可在部署完成后升级。该部如果选择升级可能会导致安装及其缓慢</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u9.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择Done</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u10.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  通过tab键，选择minimized（与Rocky一致），点击Done</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u11.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  此处使用默认DHCP，如果有需求可以改为静态，bond配置也可以在此处配置</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u12.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  此处不设置代理，默认Done</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u13.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  更改国外源为阿里云的源，这样下载更新速度会更快</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u14.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  保持磁盘分区以及格式为默认</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u15.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  检查分区无误后，选择Done</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u16.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  选择确认</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u17.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  设置个人名称、服务器名称以及用户名、密码</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u18.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  注意：请使用tab键勾选install Openssh server ，否则后续无法使用ssh服务</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u19.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  此处可以选择服务器的Snaps，这里我默认使用Tab键跳过（snap是一种特殊的包管理，使用起来不友好，虽然从功能上非常棒且安全性高）</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u20.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  系统开始安装，请等待</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u21.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  系统安装完毕，重启</p>
+<img src="/2022/08/01/Rocky%E4%B8%8EUbuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85/u22.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  系统安装完毕，直接登录<br>  Ubuntu 系统安装完成</p>
+<span id="more"></span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux%E5%AD%A6%E4%B9%A0/">Linux学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux%E5%9F%BA%E7%A1%80/">Linux基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均为h13007所编写，且采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/01/linux%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux帮助文档使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/31/linux%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">开源许可证GPL、BSD、MIT、Mozilla、Apache和LGPL的区别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

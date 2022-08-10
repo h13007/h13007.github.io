@@ -1,0 +1,975 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="h13007">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="文本编辑器  正如linux哲学思想所说，一切皆文件。对于linux，无论硬件、内核还是网络的存在，都是以文件的方式。因此我们对于linux系统的操作，必然要跟文件打交道。  其实在日常生活中，我们对于文件的操作就已经很常见了（无论是在MACOS还是windows），譬如使用记事本或者notepad++创建、编辑一个txt文本等。  那么在linux中，我们有哪些文本编辑器呢？  按照文本编辑类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文本编辑器">
+<meta property="og:url" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/index.html">
+<meta property="og:site_name" content="Hala Madrid">
+<meta property="og:description" content="文本编辑器  正如linux哲学思想所说，一切皆文件。对于linux，无论硬件、内核还是网络的存在，都是以文件的方式。因此我们对于linux系统的操作，必然要跟文件打交道。  其实在日常生活中，我们对于文件的操作就已经很常见了（无论是在MACOS还是windows），譬如使用记事本或者notepad++创建、编辑一个txt文本等。  那么在linux中，我们有哪些文本编辑器呢？  按照文本编辑类型">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/1.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/3.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/2.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/4.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/5.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/6.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/7.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/8.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/9.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/10.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/11.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/12.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/13.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/14.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/15.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/16.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/17.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/18.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/19.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/20.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/21.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/22.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/23.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/24.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/25.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/26.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/27.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/28.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/29.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/30.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/31.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/32.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/33.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/34.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/35.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/36.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/37.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/38.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/39.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/40.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/41.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/42.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/43.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/44.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/45.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/46.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/47.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/48.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/49.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/50.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/51.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/52.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/53.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/54.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/55.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/56.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/57.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/58.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/59.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/60.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/61.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/62.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/63.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/64.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/65.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/66.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/67.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/68.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/69.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/70.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/71.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/72.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/73.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/74.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/75.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/76.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/77.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/78.png">
+<meta property="og:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/79.png">
+<meta property="article:published_time" content="2022-08-08T00:58:49.000Z">
+<meta property="article:modified_time" content="2022-08-09T10:36:11.839Z">
+<meta property="article:author" content="h13007">
+<meta property="article:tag" content="Linux基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/1.png">
+  
+  
+  <title>文本编辑器 - Hala Madrid</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MxosvEI13d4QpG8zazmhlK9c-gzGzoHsz","app_key":"GzVmorGDpzb2flbFAEDfKVbk","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>h13007</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                目录
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="文本编辑器">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-08 00:58" pubdate>
+        2022年8月8日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.1k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      59 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">文本编辑器</h1>
+            
+            <div class="markdown-body">
+              <h1 id="文本编辑器"><a href="#文本编辑器" class="headerlink" title="文本编辑器"></a>文本编辑器</h1><p>  正如linux哲学思想所说，一切皆文件。对于linux，无论硬件、内核还是网络的存在，都是以文件的方式。因此我们对于linux系统的操作，必然要跟文件打交道。<br>  其实在日常生活中，我们对于文件的操作就已经很常见了（无论是在MACOS还是windows），譬如使用记事本或者notepad++创建、编辑一个txt文本等。<br>  那么在linux中，我们有哪些文本编辑器呢？<br>  按照文本编辑类型分类：<br>  1、全屏编辑器：nano(字符工具)、gedit（图形化工具）、vi、vim<br>  2、行编辑器：sed<br>  相比较而言，nano工具在使用的时候，提示内容较多，入门较为容易掌握，这里不再记录，就简单总结一下功能非常强大的VIM编辑器</p>
+<h1 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h1><p>  vim：Visual editor iMproved，功能如名，属于vi相同的工具类型，只是功能上有所增加。不过该编辑器并非必须工具，因此不少linux系统下会发现无该工具，需要进行安装</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/1.png" srcset="/img/loading.gif" lazyload class="">
+<p>  官网：<a target="_blank" rel="noopener" href="http://www.vim.org/">www.vim.org</a><br>  推荐学习网站：<a target="_blank" rel="noopener" href="http://www.w3cschool.cn/vim/">www.w3cschool.cn/vim/</a></p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/3.png" srcset="/img/loading.gif" lazyload class="">
+<p>  按照惯例，学习工具或者命令的时候，先学习一下格式</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/2.png" srcset="/img/loading.gif" lazyload class="">
+<p>  常用的参数：<br>  1）、 +#：打开文件后，让光标直接落于第#行的行首，如果不带#，+默认为行尾<br>  （为确保显示行号是#行，我们在登录用户的家目录，创建.vimrc，文件，设置set nu用于显示行号）</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/4.png" srcset="/img/loading.gif" lazyload class="">
+<p>  用. .vimrc重新加载一下配置文件后，测试： vim +7 /data/etc/fstab，结果如下：</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/5.png" srcset="/img/loading.gif" lazyload class="">
+<p>  不带#号，如下：</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/6.png" srcset="/img/loading.gif" lazyload class="">
+<p>  2）、 +/pattern：让光标落位于第一个被/pattern匹配的行的行首，举例：</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/7.png" srcset="/img/loading.gif" lazyload class="">
+<p>  3）、 -d file1 file2 … 用于对比多个文件，类似于vimdiff，举例如下：</p>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/8.png" srcset="/img/loading.gif" lazyload class="">
+<p>  4）、 -m file 以只读方式打开文件。<br>  特别说明：<br>  1#：如果vim命令后的文件存在，则文件被打开并显示对应的内容<br>  2#：如果vim命令后的文件不存在，则创建一个同名文件</p>
+<h1 id="VIM模式"><a href="#VIM模式" class="headerlink" title="VIM模式"></a>VIM模式</h1><div class="code-wrapper"><pre><code class="hljs">通过上一节，我们了解了VIM工具的格式以及一些常用的参数。那么当我们开始对文档操作的时候，就会进入到文本的操作模式切换。
+在VIM中共有四种模式：
+1）、正常或命令模式（normal-mode）：默认模式，可以实现光标的移动，文本的删除、替换、复制等
+2）、插入模式(Insert-mode)：用于编辑、修改文本
+3）、命令末行或扩展命令模式（command-mode）：文本保存、查询、扩展调用（set ai、设置高亮等）退出等
+4）、可视模式（visual-mode）：相当于高亮选取文本后的普通模式
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/9.png" srcset="/img/loading.gif" lazyload class="">
+<h1 id="模式切换"><a href="#模式切换" class="headerlink" title="模式切换"></a>模式切换</h1><div class="code-wrapper"><pre><code class="hljs">1）、命令模式切换插入模式：
+在命令模式下按下如下按键
+i：insert，按下后在光标所在处可以进行输入
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/10.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">I：可以在当前光标所在行的行首进行输入
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/11.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">a：append，可以在光标所在处的后面进行输入（输入前让光标在第14行/dev/mapper/rl-home的字母l处）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/12.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">A：可以在当前光标所在行的行尾进行输入（输入前让光标在第14行/dev/mapper/rl-home的字母l处）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/13.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">o：在当前光标所在行的下方开一个新行，可用于输入（同上）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/14.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">O：在当前光标所在行的上方开一个新行（同上）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/15.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">2）、插入模式切换命令模式：
+按下ESC键
+3）、命令模式切换扩展命令模式：
+按下冒号：键
+4）、扩展命令模式切换命令模式：
+按下ESC键后再按下ENTER键，或连续按下两次ESC键
+</code></pre></div>
+<h1 id="各模式功能简介"><a href="#各模式功能简介" class="headerlink" title="各模式功能简介"></a>各模式功能简介</h1><div class="code-wrapper"><pre><code class="hljs">完成模式切换的方式后，这对这几种模式各自能够实现的功能进行简介
+# 1、命令模式（normal-mode）
+命令模式下，我们可以针对文档信息进行查看。此时如果发现需要修改，则要进入insert模式。但是当我们仅需要修改部分很少的内容，模式切换就显得比较麻烦。
+其实，命令模式下，有着很多的的快捷键功能供我们使用：
+# 1.1、退出VIM模式
+快捷键：
+       ZZ：保存修改并推出
+       ZQ：退出不保存
+# 1.2、光标移动
+快捷键：
+       #h：向左移动#个字符
+       #j：向下移动#个字符
+       #k：向上移动#个字符
+       #l：向右移动#个字符
+       #w：第#个单词的词首（除了空格外的标点也算一个词，举例：光标默认在vimrc文件第5行的行首set，输入2w）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/16.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       #e：当前或下#个单词后的单词词尾（如果光标在当前单词的非词尾位置，则#的计数算本单词。如果在当前单词的词尾，则从下一个单词计数，光标同上，输入2e）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/17.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       #b：当前或下#个单词后的单词词首（如果光标在当前单词的非词首位置，则#的计数算本单词。如果在当前单词的词首，则从前一个单词计数，光标默认在vimrc文件
+       第5行的eol的字符o上，输入3b）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/18.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 1.3、当前页跳转：
+快捷键：
+      H：直接跳转页首（该页首指当前屏幕显示页面的页首，而非整体内容的页面中间）
+      M：跳转页面中间（该页面中间指当前屏幕显示页面的中间，而非整体内容的页面中间），举例：光标目前在vimrc文件的第1行的if单词的i字符下，直接输入M，后光标
+      自动跳转至第21行的行首autocmd的a字符处。（看此时屏幕，共计42行）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/19.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">      L：跳转至当前屏幕页面的页底
+      zt：将光标所在行跳转至屏幕顶端显示，举例：光标目前在vimrc文件的第36行的set nocsverb的s字符下，直接输入zt跳转，输入前界面：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/20.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">      输入zt后
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/21.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">      zz：将光标所在行跳转至屏幕中间显示
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/22.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">      zb：将光标所在行跳转至屏幕低端显示，举例：光标目前在vimrc文件的第45行的endif的e字符下，直接输入zb跳转
+      输入zb前
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/23.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">      输入zb后
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/24.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 1.4、行首行尾跳转
+快捷键：
+       ^：跳转至行首的第一个非空白字符，举例：光标目前在vimrc文件的第21行的BufReadPost的B字符下
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/25.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       0：跳转至行首，举例如上
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/26.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       $：跳转至行尾，举例如上
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/27.png" srcset="/img/loading.gif" lazyload class="">    
+<div class="code-wrapper"><pre><code class="hljs"># 1.5、行间跳转
+快捷键：
+       #G：跳转至第#行，举例：光标目前在vimrc文件的第1行，键入7G
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/28.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       G：跳转至最后一行，举例如上，当前在第7行
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/29.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       gg：跳转至第一行，如同1G，举例如上
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/30.png" srcset="/img/loading.gif" lazyload class="">    
+<div class="code-wrapper"><pre><code class="hljs"># 1.6、句间、段间跳转
+快捷键：
+       ）：跳转下一句，举例：（如果为if，else等语句，完整为一句，当前光标在vimrc文件的第1行，键入）后跳转至第4行）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/31.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">      （ ：跳转上一句
+       &#125; ：跳转下一段，举例：目前光标在上一次操作后的第4行，键入&#125;后跳转空白的第13行（注：空白行间隔的内容为一段）
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/32.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       &#123; ：跳转上一段           
+# 1.7、翻屏跳转
+快捷键：
+       Ctrl+f：向文件尾部跳转一屏；
+       Ctrl+b：向文件首部跳转一屏；
+# 1.8、字符操作
+快捷键：
+       #x：剪切光标处开始的#个字符，举例：光标目前在vimrc文件的第14行，when的w字符处，此时键入3w，可以看到此时when单词仅剩n字符存在：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/33.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       xp：交换光标所处的字符预期临界字符的位置。举例：还原文件后，位置依然如上，此时键入xp，可以看到when变为hwen:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/34.png" srcset="/img/loading.gif" lazyload class="">          
+<div class="code-wrapper"><pre><code class="hljs">       ~：转换大小写，举例：如上位置，还原后，键入~，可以看到when变为When:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/35.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       r：替换光标处的字符为键入r键后的字符，举例：如上位置还原后，键入r，随后键入t，此时when变为then:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/36.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       R：切换至REPLACE模式，按ESC键回到命令模式，举例：如上位置还原后，键入R，随后输入haha，此时when变为haha，按键ESC后退出REPLACE模式：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/37.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       d：删除命令，结合光标跳转字符，实现范围删除
+          d$：从光标字符删除到行尾（包含该光标所在字符），等同D，举例：还原位置和内容后，键入d$，此时发现包含when字符均删除：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/38.png" srcset="/img/loading.gif" lazyload class="">     
+<div class="code-wrapper"><pre><code class="hljs">          d^：从光标字符前删除至非空行首，举例：还原位置和内容后，键入d^，此时发现包含when之前至行首的字符均删除：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/39.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          d0：从光标字符前删除至行首，举例：还原位置和内容后，键入d0，此时发现包含when之前至行首的字符均删除：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/40.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          dd：删除光标所在行，举例：还原位置和内容后，键入dd，此时发现包含when所在行字符均删除：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/41.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          #dd：删除从光标开始的#个行，举例：还原位置和内容后，键入3dd，此时发现包含when所在14-16行字符均删除：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/42.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       p（小写）：粘贴命令，如果缓冲区缓存的是整行的内容，粘贴内容将会在当前光标所在行的下方，否则，内容将会粘贴到当前光标所在位置的后面；
+       P（大写）：粘贴命令，如果缓冲区缓存的是整行的内容，则粘贴内容将会出现在当前光标所在行的上方，否则，内容将会被粘贴到当前光标所谓位置的前面；
+       y：复制命令，同d的组合类型，可以结合跳转光标，举例
+          y$：从光标所在字符，复制到行尾（包含光标所在字符）。举例：如上还原位置和内容后，键入y$，随后键入P粘贴下来，可查看到复制内容：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/43.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          y^：从光标所在字符，复制到行首非空字符（不包含光标所在字符）。举例：此时光标位置在vimrc文件的第18行，limit的l字符处，此时键入y^，随后键入p：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/44.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          y0：从光标所在字符前，复制到行首，包含行首为空的字符。举例：如上位置，还原上一步操作后，键入y0，随后键入p:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/45.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          yy：从光标所在行，复制整行内容。举例：如上位置，还原上一步操作后，键入yy，随后键入p:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/46.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">          #yy：从光标所在行，复制#行的内容。举例：如上位置，还原上一步操作后，键入3yy，随后键入p，可以看到从18行至20行的三行内容 被复制:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/47.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 1.9、修改命令
+快捷键：
+       注：使用修改命令c后，内容被删除后直接切换为insert模式。
+       c$：从光标所在字符删除至行尾（包含光标所在字符），随后进入insert模式。举例：如上设置，光标位置在vimrc文件的第18行，limit的l字符处，此时键入c$：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/48.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       c^：从光标所在字符删除至行首非空字符处，随后进入insert模式。举例：如上设置，光标位置在vimrc文件的第18行，limit的l字符处，此时键入c^：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/49.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       c0：从光标所在字符删除至行首，随后进入insert模式。举例：如上设置，光标位置在vimrc文件的第18行，limit的l字符处，此时键入c0：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/50.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       cc：删除当前光标所在行，举例：光标位置还原，键入cc：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/51.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 命令模式下文本操作总结
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/52.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 1.10、查找命令
+快捷键：
+       /pattern：从当前光标所在位置想文件首部查找。
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/53.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       ？pattern：从当前光标所在位置向文件首部查找。
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/54.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       n：与命令同方向，查找下一个或上一个匹配pattern的文件位置。
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/55.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">       N：与命令反方向，查找下一个或上一个匹配pattern的文件位置。
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/56.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 1.11、撤销命令
+快捷键：
+       u：撤销最近的更改（undo），类似Windows文本文件中的Ctrl+z。
+       #u：撤销之前#次更改。
+       U：撤销光标落在本行后，所有对于此行的更改操作。
+       .：重复前一个操作。
+       #.：重复前一个操作#次。
+# 2、命令末行或扩展命令模式（command-mode）
+扩展命令模式，如名称所言，可以为我们提供标准命令以外更多的帮助，这些具体的帮助，将会随后进行简单的展开。
+通过键入冒号：我们可以切换进入扩展命令模式，此时提示符会在屏幕左下角显示：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/57.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 2.1、扩展命令中的基础命令
+w：写入文件
+wq：写入并退出
+x（小写）：写入并退出
+注：wq与x都有写入文件并退出的功能，区别在于，wq退出的时候，无论之前对文件是否有过修改，文件的修改ctime时间都会更新为退出时的时间，而x仅当文件内容确实被
+修改后，退出才会更改ctime。举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/58.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">X（大写）：文件加密
+q（小写）：退出
+q!：不写入文件，强制退出，之前的修改都不生效
+r file1：将file1文件内的内容读取，并写入到当前文件的光标之后，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/59.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/60.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/61.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">w file2：将当前文件的内容写入到另一个文件，举例：通过vim编辑fstab文件的时候，想起来需要备份，使用w，写入到fstab.bak文件（此时不存在fstab.bak文件）：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/62.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">!command：执行命令，一般可在修改文件时想要查看某些内容，或是某些命令的执行结果，可通过此方式，执行完成命令后，回车即可退回编辑，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/63.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">r!command：读入命令执行后的内容。举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/64.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 2.2、地址界定
+格式：
+     :start_pos,end_pos CMD
+     如上为起始界定，终止界定，CMD命令
+     # 2.2.1、地址界定格式
+@：第@行，举例：当前光标在vimrc文件的第一行，输入61后，光标直接跳转至61行：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/65.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">@，&amp;：从左侧@行起始，到右侧&amp;行结束，直接使用没有太大意义，主要用于圈定范围，与范围后添加的CMD命令共同执行
+@，+#：从第@行开始，到右侧加上加上#的行。如2，+4，表示第2到第6行
+.：代表当前行
+$：代表最后一行
+.，$-1：从当前行到倒数第二行
+%：表示全文，类似1,$的效果
+/pattern/：从当前行向下查找，找到匹配pattern的第一行；
+/part1/，/part2/：从第一次匹配到part1的行开始，直到第一次匹配到part2的行结束；
+@，/pattern/：从指定的@行开始，直到第一次匹配pattern的行结束；
+/pattern/,$：从第一个匹配/pattern/的行开始，知道文件最后的所有行。
+      # 2.2.2、地址界定后的CMD命令
+d：删除命令，结合地址界定范围，可以实现范围删除，举例：2，10 d:
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/66.png" srcset="/img/loading.gif" lazyload class="">
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/67.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">y：复制命令
+w file2：将范围内的行，写入指定的file2文件中
+r file1：在指定位置插入指定文件中的所有内容
+# 2.3、查找替换
+格式：
+     s/查找的内容/要替换成的内容/修饰符
+说明：要查找的内容可以使用正则表达式模式；
+      要替换成的内容不能使用模式，但可以使用\1，\2等后向引用符号。还可以使用“&amp;”引用前面查找时查找到的整个内容；
+      修饰符：i：忽略大小写；
+              g：全局替换，默认不带修饰符g的时候，每一次仅替换查找到的第一个内容；
+              gc：全局替换，但是每次替换的时候都会询问，交互。
+      查找替换中的分隔符除了/还可以使用@,#符号来代替，但需要保证前后一致。
+举例：ifcfg文件中的no都替换为yes：1,14 s@no@yes@g，结果如下：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/68.png" srcset="/img/loading.gif" lazyload class="">    
+<div class="code-wrapper"><pre><code class="hljs"># 2.4、定制vim特性
+一切皆文件，扩展命令的配置只对当前vim进程生效，想要长久生效，必要写入文件中存放：
+/etc/vimrc：该文件影响全局
+~.vimrc：家目录下的该文件仅影响该用户，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/69.png" srcset="/img/loading.gif" lazyload class="">    
+<div class="code-wrapper"><pre><code class="hljs">      # 2.4.1、设置行号显示
+      启用：set number，缩写 set nu
+      取消启用：set nonumber，缩写 set nonu
+      # 2.4.2、忽略字符大小写
+      启用：set ignorecase，缩写 set ic
+      取消启用：set noignorecase，缩写 set noic
+      # 2.4.3、自动缩进
+      启用：set autoindent，缩写 set ai
+      取消启用：set noautoindent，缩写 set noai
+      # 2.4.4、复制保留格式
+      启用：set paste
+      取消启用：set nopaste
+      # 2.4.5、高亮搜索
+      启用：set hlsearch
+      取消启用：set nohlsearch，缩写 set nohl
+      # 2.4.6、显示TAB ^I和换行符 $显示
+      启用：set list
+      取消启用：set nolist
+      # 2.4.7、语法高亮
+      启用：syntax on
+      取消启用：syntax off
+      # 2.4.8、光标所在行显示标识线
+      启用：set cursorline，缩写 set cul
+      取消启用：set nocursorline
+      # 2.4.9、了解更多
+      help option-list
+      set all
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/70.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 3、可视模式（visual-mode）
+可视模式下，在页面底部有&quot;----VISUAL----&quot;的提示，在该模式下，可以选取的文字会凸显，可被删除、复制、过滤搜索等
+允许选取的范围：
+1）、键入v（小写）进入可视模式：面向字符高亮以及操作
+2）、键入V（大写）进入可视模式：面向行高亮以及操作
+3）、ctrl+v：面向块高亮以及操作
+举例：在文件的所有行首插入#：
+步骤：
+     1）、光标移至第一行行首
+     2）、键入Ctrl+v，进入可视模式
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/71.png" srcset="/img/loading.gif" lazyload class="">         
+<div class="code-wrapper"><pre><code class="hljs">     3）、向下移动光标，选中每一行的行首第一个字符
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/72.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">     4）、选中后输入大写字母I，进入插入模式
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/73.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">     5）、键入#
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/74.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">     6）、按键ESC。
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/75.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 4、插入模式(Insert-mode)
+i：insert，按下后在光标所在处可以进行输入
+I：可以在当前光标所在行的行首进行输入
+a：append，可以在光标所在处的后面进行输入（输入前让光标在第14行/dev/mapper/rl-home的字母l处）
+A：可以在当前光标所在行的行尾进行输入（输入前让光标在第14行/dev/mapper/rl-home的字母l处）
+o：在当前光标所在行的下方开一个新行，可用于输入（同上）
+O：在当前光标所在行的上方开一个新行（同上）
+# 多文件模式
+格式：vim file1 file2 file3 ....
+：next 跳转下一个文件
+：prev 跳转上一个文件
+：first 跳转第一个文件
+：last 跳转对后一个文件
+：wall 保存编辑打开的所有文件
+：qall 退出不写入所有文件
+：wqall 保存写入并退出所有文件
+# 多窗口模式
+1）、多文件多窗口
+格式：vim -o|-O file1 file2
+-o（小写）：水平分割，即两个文件一上一下，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/76.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">-O（大写）：垂直分割，即连个文件一左一右，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/77.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">窗口间切换：先键入CTRL+w，然后使用键盘上的上下左右按键，将光标挪至对应文件窗口。（如果为水平分割，则窗口切换仅用上下，垂直分割，则只用左右）
+2）、单文件分屏
+格式：vim file1后键入快捷键；
+ctrl+w,s：键入ctrl+w后快速键入s，此时为单文件的水平分割，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/78.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">ctrl+w,v：键入ctrl+w后快速键入v，此时为单文件的垂直分割，举例：
+</code></pre></div>
+<img src="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/79.png" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs">ctrl+w,q：键入ctrl+w后快速键入q，取消相邻的窗口
+ctrl+w,o：键入ctrl+w后快速键入o，取消全部窗口
+</code></pre></div>
+<span id="more"></span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux%E5%AD%A6%E4%B9%A0/">Linux学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux%E5%9F%BA%E7%A1%80/">Linux基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均为h13007所编写，且采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/10/%E6%96%87%E6%9C%AC%E6%9F%A5%E7%9C%8B%E5%A4%84%E7%90%86%E5%B7%A5%E5%85%B7%E7%AE%80%E4%BB%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">文本查看处理工具简介</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+                        <span class="hidden-mobile">文件以及用户权限管理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

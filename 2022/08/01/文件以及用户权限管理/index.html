@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="h13007">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、linux的用户  在linux系统中，每个用户登录后，系统都会分配对应的令牌token，包括：用户标识以及组成员的信息，完成AAA认证；  AAA：  Authentication：认证，用于验证用户的身份  Authorization：授权，针对不同的用户给与不同的权限  Accounting|Audition：审计 1.1、用户  每个用户都是通过User ID，即用户ID来唯一标识的，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件以及用户权限管理">
+<meta property="og:url" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Hala Madrid">
+<meta property="og:description" content="1、linux的用户  在linux系统中，每个用户登录后，系统都会分配对应的令牌token，包括：用户标识以及组成员的信息，完成AAA认证；  AAA：  Authentication：认证，用于验证用户的身份  Authorization：授权，针对不同的用户给与不同的权限  Accounting|Audition：审计 1.1、用户  每个用户都是通过User ID，即用户ID来唯一标识的，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/1.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/3.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/4.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/5.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/6.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/7.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/8.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/9.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/10.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/11.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/12.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/13.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/14.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/15.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/16.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/17.png">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/18.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/19.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/20.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/21.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/22.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/23.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/24.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/25.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/26.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/27.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/28.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/29.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/30.PNG">
+<meta property="og:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/31.PNG">
+<meta property="article:published_time" content="2022-08-01T02:09:01.000Z">
+<meta property="article:modified_time" content="2022-08-01T16:11:43.404Z">
+<meta property="article:author" content="h13007">
+<meta property="article:tag" content="Linux基础">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/1.PNG">
+  
+  
+  <title>文件以及用户权限管理 - Hala Madrid</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"MxosvEI13d4QpG8zazmhlK9c-gzGzoHsz","app_key":"GzVmorGDpzb2flbFAEDfKVbk","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>h13007</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                目录
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="文件以及用户权限管理">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-08-01 02:09" pubdate>
+        2022年8月1日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- LeanCloud 统计文章PV -->
+      <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="leancloud-page-views"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">文件以及用户权限管理</h1>
+            
+            <div class="markdown-body">
+              <h1 id="1、linux的用户"><a href="#1、linux的用户" class="headerlink" title="1、linux的用户"></a>1、linux的用户</h1><p>  在linux系统中，每个用户登录后，系统都会分配对应的令牌token，包括：用户标识以及组成员的信息，完成AAA认证；<br>  AAA：<br>  Authentication：认证，用于验证用户的身份<br>  Authorization：授权，针对不同的用户给与不同的权限<br>  Accounting|Audition：审计</p>
+<h1 id="1-1、用户"><a href="#1-1、用户" class="headerlink" title="1.1、用户"></a>1.1、用户</h1><p>  每个用户都是通过User ID，即用户ID来唯一标识的，其中：<br>  管理员：root，ID为0<br>  普通用户：1-60000自动分配：<br>      系统用户：1-999，对守护进程获取资源进行权限分配<br>      登录用户：1000+，分配给用户用于交互式登录使用<br>      举例：</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/1.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="1-2、用户组"><a href="#1-2、用户组" class="headerlink" title="1.2、用户组"></a>1.2、用户组</h1><p>  对于想要拥有相同权限的一个或多个用户，放置于一个用户组，对该用户组设置相同权限来实现。<br>  于用户一致，用户组通过Group ID（GID）来识别<br>  管理员组：root GID为0<br>  普通组：<br>      系统组：1-999， 对守护进程获取资源进行权限分配<br>      普通用户组：1000+，给用户使用<br>      举例：</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/2.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="1-3、用户与用户组之间的关系"><a href="#1-3、用户与用户组之间的关系" class="headerlink" title="1.3、用户与用户组之间的关系"></a>1.3、用户与用户组之间的关系</h1><p>  1）、用户的主要组(primary group)：用户必须属于一个且只有一个主组，默认创建用户时会自动创建和用户名同名的组，做为用户的主要组，<br>  由于此组中只有一个用户，又称为私有组。<br>  2）、用户的附加组(supplementary group)：一个用户可以属于零个或多个辅助组，附属组</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/3.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="1-4、安全上下文"><a href="#1-4、安全上下文" class="headerlink" title="1.4、安全上下文"></a>1.4、安全上下文</h1><p>  Linux安全上下文Context：运行中的程序，即进程 (process)，以进程发起者的身份运行，进程所能够访问资源的权限取决于进程的运行者的身份。<br>  比如：分别以root 和hp 的身份运行/bin/cat  /etc/shadow ，得到的结果是不同的，资源能否能被访问，是由运行者的身份决定，非程序本身</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/4.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="2、用户和用户组的配置文件"><a href="#2、用户和用户组的配置文件" class="headerlink" title="2、用户和用户组的配置文件"></a>2、用户和用户组的配置文件</h1><h1 id="2-1、用户和用户组的主要配置文件"><a href="#2-1、用户和用户组的主要配置文件" class="headerlink" title="2.1、用户和用户组的主要配置文件"></a>2.1、用户和用户组的主要配置文件</h1><p>  /etc/passwd：用户及其属性信息(名称、UID、主组ID等）<br>  /etc/shadow：用户密码及其相关属性<br>  /etc/group：组及其属性信息<br>  /etc/gshadow：组密码及其相关属性</p>
+<h1 id="2-2、passwd文件格式"><a href="#2-2、passwd文件格式" class="headerlink" title="2.2、passwd文件格式"></a>2.2、passwd文件格式</h1><p>  login name：登录用名（hp）<br>  passwd：密码  (x)<br>  UID：用户身份编号 (1000)<br>  GID：登录默认所在组编号  (1000)<br>  GECOS：用户全名或注释<br>  home directory：用户主目录 (/home/hp)<br>  shell：用户默认使用shell (/bin/bash)</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/5.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  如上7个属性通过“：”进行隔离。其中密码使用X代替，真实的密码存储在/etc/shadow文件中</p>
+<h1 id="2-3、shadow文件格式"><a href="#2-3、shadow文件格式" class="headerlink" title="2.3、shadow文件格式"></a>2.3、shadow文件格式</h1><p>  登录用名<br>  用户密码:一般用sha512加密<br>  从1970年1月1日起到密码最近一次被更改的时间<br>  密码再过几天可以被变更（0表示随时可被变更）<br>  密码再过几天必须被变更（99999表示永不过期）<br>  密码过期前几天系统提醒用户（默认为一周）<br>  密码过期几天后帐号会被锁定<br>  从1970年1月1日算起，多少天后帐号失效<br>  保留位</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/6.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  如上9个属性通过“：”进行隔离。其中第二位的密码由三个$符号隔开，第一个数字6即代表使用的是sha512加密，后面被$隔开的分别是随机数和密码。</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/7.PNG" srcset="/img/loading.gif" lazyload class="">
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/8.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  生成12位随机密码：tr  -dc ‘[:alnum:]’ &lt; /dev/urandom | head -c 12</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/9.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="2-4、group文件格式"><a href="#2-4、group文件格式" class="headerlink" title="2.4、group文件格式"></a>2.4、group文件格式</h1><p>  群组名称：就是群组名称<br>  群组密码：通常不需要设定，密码是被记录在 /etc/gshadow<br>  GID：就是群组的 ID<br>  以当前组为附加组的用户列表(分隔符为逗号)</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/10.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="2-5、gshadow文件格式"><a href="#2-5、gshadow文件格式" class="headerlink" title="2.5、gshadow文件格式"></a>2.5、gshadow文件格式</h1><p>  群组名称：就是群的名称<br>  群组密码：<br>  组管理员列表：组管理员的列表，更改组密码和成员<br>  以当前组为附加组的用户列表：多个用户间用逗号分隔</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/11.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="2-6、文件操作"><a href="#2-6、文件操作" class="headerlink" title="2.6、文件操作"></a>2.6、文件操作</h1><p>  vipw和vigr：<br>  vipw命令用于修改shadow,vigr命令用于修改group<br>  pwck和grpck：<br>  pwck用于校验/etc/passwd以及/etc/shadow两个文件的完整性，使用该命令后，跟上echo $?查看返回值，即可知道文件是否完整</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/12.PNG" srcset="/img/loading.gif" lazyload class="">
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/13.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  grpck命令用于验证组文件/etc/group和/etc/shadow的完整性</p>
+<h1 id="3、用户和组管理命令"><a href="#3、用户和组管理命令" class="headerlink" title="3、用户和组管理命令"></a>3、用户和组管理命令</h1><p>  用户管理命令：<br>  useradd、usermod、userdel<br>  组账号管理命令：<br>  groupadd、groupmod、groupdel</p>
+<h1 id="3-1、用户创建"><a href="#3-1、用户创建" class="headerlink" title="3.1、用户创建"></a>3.1、用户创建</h1><p>  useradd 命令可以创建新的Linux用户，格式：<br>  useradd [options] LOGIN<br>  常见的选项：<br>  -u  UID<br>  -o  配合-u 选项，不检查UID的唯一性<br>  -g  GID  指明用户所属基本组，可为组名，也可以GID<br>  -c  “COMMENT“    用户的注释信息<br>  -d  HOME_DIR 以指定的路径(不存在)为家目录<br>  -s  SHELL    指明用户的默认shell程序，可用列表在/etc/shells文件中<br>  -G  GROUP1[,GROUP2,…]  为用户指明附加组，组须事先存在<br>  -N  不创建私用组做主组，使用users组做主组<br>  -r  创建系统用户ID&lt;1000<br>  -m  创建家目录，用于系统用户<br>  -M  不创建家目录，用于非系统用户<br>  -p  指定加密的密码<br>  useradd 命令默认值设定由/etc/default/useradd定义</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/14.PNG" srcset="/img/loading.gif" lazyload class="">
+<p>  其中：<br>  HOME=/homeINACTIVE=-1    #对应/etc/shadow文件第7列，即用户密码过期后的帐号锁定的宽限期,-1表示不锁定<br>  EXPIRE=        #对应/etc/shadow文件第8列，即用户帐号的有效期<br>  SKEL=/etc/skel  #用于生成新建用户家目录的模版文件</p>
+<h1 id="3-2、用户属性修改"><a href="#3-2、用户属性修改" class="headerlink" title="3.2、用户属性修改"></a>3.2、用户属性修改</h1><p>  usermod 命令可以修改用户属性，格式：<br>  usermod [OPTION] login<br>  常见选项：<br>  -u UID: 新UID<br>  -g GID: 新主组<br>  -G GROUP1[,GROUP2,…[,GROUPN]]]：新附加组，原来的附加组将会被覆盖；若保留原有，则要同时使用-a选项<br>  -s SHELL：新的默认SHELL<br>  -c ‘COMMENT’：新的注释信息<br>  -d HOME: 新家目录不会自动创建；若要创建新家目录并移动原家数据，同时使用-m选项<br>  -l login_name: 新的名字<br>  -L: lock指定用户,在/etc/shadow 密码栏的增加 !<br>  -U: unlock指定用户,将 /etc/shadow 密码栏的 ! 拿掉<br>  -e YYYY-MM-DD: 指明用户账号过期日期<br>  -f INACTIVE: 设定非活动期限，即宽限期</p>
+<h1 id="3-3、删除用户"><a href="#3-3、删除用户" class="headerlink" title="3.3、删除用户"></a>3.3、删除用户</h1><p>  userdel 可删除Linux 用户，格式：<br>  userdel [OPTION]… Login<br>  常见选项：<br>  -f, –force     强制<br>  -r, –remove    删除用户家目录和邮箱<br>  建议删除的时候带上-r属性，删除的干净</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/15.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="3-4、查看用户相关ID信息"><a href="#3-4、查看用户相关ID信息" class="headerlink" title="3.4、查看用户相关ID信息"></a>3.4、查看用户相关ID信息</h1><p>  id 命令可以查看用户的UID，GID等信息，格式：<br>  id [OPTION]… [USER]<br>  常见选项：<br>  -u: 显示UID<br>  -g: 显示GID<br>  -G: 显示用户所属的组的ID<br>  -n: 显示名称，需配合ugG使用</p>
+<h1 id="3-5、切换用户或以其他用户身份执行命令"><a href="#3-5、切换用户或以其他用户身份执行命令" class="headerlink" title="3.5、切换用户或以其他用户身份执行命令"></a>3.5、切换用户或以其他用户身份执行命令</h1><p>  su:  即 switch user，命令可以切换用户身份，并且以指定用户的身份执行命令，格式：<br>  su [options…] [-] [user [args…]]<br>  常见选项：<br>  -l  –login   su -l UserName    相当于 su - UserName<br>  -c, –command <command>         pass a single command to the shell with -c<br>  切换用户的方式：<br>    su UserName：非登录式切换，即不会读取目标用户的配置文件，不改变当前工作目录，即不完全切换<br>    su - UserName：登录式切换，会读取目标用户的配置文件，切换至自已的家目录，即完全切换<br>  注：root su至其他用户无须密码；非root用户切换时需要密码。su 切换新用户后，使用 exit 退回至旧的用户身份，<br>  而不要再用 su 切换至旧用户，否则会生成很多的bash子进程，环境可能会混乱。</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/16.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="3-6、设置密码"><a href="#3-6、设置密码" class="headerlink" title="3.6、设置密码"></a>3.6、设置密码</h1><p>  passwd 可以修改用户密码，格式：<br>  passwd [OPTIONS] UserName<br>  常用选项：<br>  -d：删除指定用户密码<br>  -l：锁定指定用户<br>  -u：解锁指定用户<br>  -e：强制用户下次登录修改密码<br>  -f：强制操作<br>  -n mindays：指定最短使用期限<br>  -x maxdays：最大使用期限<br>  -w warndays：提前多少天开始警告<br>  -i inactivedays：非活动期限<br>  –stdin：从标准输入接收用户密码,Ubuntu无此选项</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/17.png" srcset="/img/loading.gif" lazyload class="">
+<h1 id="3-7、修改用户密码策略"><a href="#3-7、修改用户密码策略" class="headerlink" title="3.7、修改用户密码策略"></a>3.7、修改用户密码策略</h1><p>  chage 可以修改用户密码策略，格式：<br>  chage [OPTION]… LOGIN<br>  常见选项：<br>  -d  LAST_DAY                   #更改密码的时间<br>  -m –mindays MIN_DAYS<br>  -M –maxdays MAX_DAYS<br>  -W –warndays WARN_DAYS<br>  -I –inactive INACTIVE          #密码过期后的宽限期<br>  -E –expiredate EXPIRE_DATE     #用户的有效期<br>  -l  显示密码策略</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/18.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="3-8、创建组"><a href="#3-8、创建组" class="headerlink" title="3.8、创建组"></a>3.8、创建组</h1><p>  groupadd实现创建组，格式：<br>  groupadd [OPTION]… group_name<br>  常见选项：<br>  -g GID  指明GID号；[GID_MIN, GID_MAX]<br>  -r  创建系统组，ID&lt;1000</p>
+<h1 id="3-9、修改组"><a href="#3-9、修改组" class="headerlink" title="3.9、修改组"></a>3.9、修改组</h1><p>   groupmod  组属性修改，格式：<br>   groupmod [OPTION]… group<br>   常见选项：<br>   -n group_name: 新名字<br>   -g GID: 新的GID</p>
+<h1 id="3-10、组删除"><a href="#3-10、组删除" class="headerlink" title="3.10、组删除"></a>3.10、组删除</h1><p>  groupdel 可以删除组，格式：<br>  groupdel [options] GROUP<br>  常见选项：<br>  -f, –force 强制删除，即使是用户的主组也强制删除组,但会导致无主组的用户不可用无法登录</p>
+<h1 id="3-11、更改组成员和密码"><a href="#3-11、更改组成员和密码" class="headerlink" title="3.11、更改组成员和密码"></a>3.11、更改组成员和密码</h1><p>  gpasswd命令，可以更改组密码，也可以修改附加组的成员关系，格式：<br>  gpasswd [OPTION] GROUP<br>  常见选项：<br>  -a user  将user添加至指定组中<br>  -d user  从指定附加组中移除用户user<br>  -A user1,user2,…  设置有管理权限的用户列表</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/19.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="3-12、更改和查看组成员"><a href="#3-12、更改和查看组成员" class="headerlink" title="3.12、更改和查看组成员"></a>3.12、更改和查看组成员</h1><p>  groupmems 可以管理附加组的成员关系，格式：<br>  groupmems [options] [action]<br>  常见选项：<br>   -g, –group groupname       #更改为指定组 (只有root)<br>   -a, –add username          #指定用户加入组<br>   -d, –delete username       #从组中删除用户<br>   -p, –purge                 #从组中清除所有成员<br>   -l,  –list                 #显示组成员列表<br>  groups 可查看用户组关系，格式：<br>  groups [OPTION].[USERNAME]… </p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/20.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="4、文件权限管理"><a href="#4、文件权限管理" class="headerlink" title="4、文件权限管理"></a>4、文件权限管理</h1><p>  程序访问文件时的权限，取决于此程序的发起者；<br>  进程的发起者，同文件的属主：则应用文件属主权限；<br>  进程的发起者，属于文件属组；则应用文件属组权限；<br>  应用文件“其它”权限</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/21.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="4-1、文件所有者和属组属性操作"><a href="#4-1、文件所有者和属组属性操作" class="headerlink" title="4.1、文件所有者和属组属性操作"></a>4.1、文件所有者和属组属性操作</h1><div class="code-wrapper"><pre><code class="hljs"># 4.1.1、设置文件的所有者chown
+chown 命令可以修改文件的属主，也可以修改文件属组，格式：
+chown [OPTION]... [OWNER][:[GROUP]] FILE...
+chown [OPTION]... --reference=RFILE FILE...
+用法说明：
+OWNER           #只修改所有者
+OWNER:GROUP     #同时修改所有者和属组
+:GROUP          #只修改属组，冒号也可用 . 替换
+--reference=RFILE  #参考指定的的属性，来修改   
+-R              #递归，此选项慎用，非常危险！
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/22.PNG" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"># 4.1.2、设置文件的属组信息chgrp
+chgrp 命令可以只修改文件的属组，格式：
+chgrp [OPTION]... GROUP FILE... 
+chgrp [OPTION]... --reference=RFILE FILE...
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/23.PNG" srcset="/img/loading.gif" lazyload class="">  
+<h1 id="4-2、文件权限"><a href="#4-2、文件权限" class="headerlink" title="4.2、文件权限"></a>4.2、文件权限</h1><div class="code-wrapper"><pre><code class="hljs"># 4.2.1、文件权限说明
+文件的权限主要针对三类对象进行定义：
+owner   属主, u
+group   属组, g
+other   其他, o
+注意：用户的最终权限，是从左向右进行顺序匹配，即，所有者，所属组，其他人，一旦匹配权限立即生效，不再向右查看其权限
+r和w权限对root 用户无效只要所有者,所属组或other三者之一有x权限,root就可以执行
+每个文件针对每类访问者都定义了三种权限：
+r   Readable  4
+w   Writable  2
+x   eXcutable 1
+对文件的权限：
+r   可使用文件查看类工具，比如：cat，可以获取其内容
+w   可修改其内容,文件的是否被删除和文件的权限无关
+x   可以把此文件提请内核启动为一个进程，即可以执行（运行）此文件（此文件的内容必须是可执行）文件权限常见组合
+--- 0
+r   4
+r-x 5
+rw  6
+rwx 7
+对目录的权限：
+r   可以使用ls查看此目录中文件名列表,但无法看到文件的属性meta信息,包括inode号,不能查看文件的内容
+w   可在此目录中创建文件，也可删除此目录中的文件，而和此被删除的文件的权限无关
+x   可以cd进入此目录，可以使用ls -l file或stat file 查看此目录中指定文件的元数据，当预先知道文件名称时,也可以查看文件的内容,属于目录的可访问的最小权限
+X   分配给目录或有部分x权限的文件的x权限，对无任意x权限的文件则不会分配x权限目录权限常见组合
+-   不能访问目录
+r-x 只读目录
+rwx 可读也可写目录
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/24.PNG" srcset="/img/loading.gif" lazyload class="">  
+<div class="code-wrapper"><pre><code class="hljs"># 4.2.2、修改文件权限chmod
+格式：
+chmod [OPTION]... MODE[,MODE]... FILE...
+chmod [OPTION]... OCTAL-MODE FILE...#参考RFILE文件的权限，将FILE的修改为同RFILE
+chmod [OPTION]... --reference=RFILE FILE...
+模式法格式：
+MODE：who opt permission
+who:u,g,o,a 
+opt:+,-,=
+permission:r,w,x
+修改指定一类用户的所有权限
+u=  g= o= ug=  a= u=,g=
+修改指定一类用户某个或某个权限
+u+  u- g+ g- o+ o- a+ a- + -
+-R: 递归修改权限
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/25.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="4-3、新建文件和目录的默认权限"><a href="#4-3、新建文件和目录的默认权限" class="headerlink" title="4.3、新建文件和目录的默认权限"></a>4.3、新建文件和目录的默认权限</h1><p>   umask 的值可以用来保留在创建文件权限，实现方式：<br>   新建文件的默认权限: 666-umask，如果所得结果某位存在执行（奇数）权限，则将其权限+1,偶数不变<br>   新建目录的默认权限: 777-umask<br>   非特权用户umask默认是 002，注：Rocky上非特权用户的umask和root一致，都为022<br>   root的umask 默认是 022<br>   查看umask</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/26.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="4-4、linux文件系统上的特殊权限"><a href="#4-4、linux文件系统上的特殊权限" class="headerlink" title="4.4、linux文件系统上的特殊权限"></a>4.4、linux文件系统上的特殊权限</h1><p>   前面介绍了三种常见的权限：r, w, x  还有三种特殊权限：SUID, SGID, Sticky特殊权限。<br>   SUID 作用于二进制可执行文件上,用户将继承此程序所有者的权限；<br>   SGID 作用于二进制可执行文件上,用户将继承此程序所有组的权限作于于目录上, 此目录中新建的文件的所属组将自动从此目录继承；<br>   STICKY 作用于目录上,此目录中的文件只能由所有者自已来删除。<br>     # 4.4.1、特殊权限SUID<br>     前提：进程有属主和属组；文件有属主和属组<br>     1）、任何一个可执行程序文件能不能启动为进程,取决发起者对程序文件是否拥有执行权限；<br>     2）、启动为进程之后，其进程的属主为发起者,进程的属组为发起者所属的组；<br>     3）、进程访问文件时的权限，取决于进程的发起者。<br>     二进制的可执行文件上SUID权限功能：<br>     1）、任何一个可执行程序文件能不能启动为进程：取决发起者对程序文件是否拥有执行权限<br>     2）、启动为进程之后，其进程的属主为原程序文件的属主<br>     3）、SUID只对二进制可执行程序有效<br>     4）、SUID设置在目录上无意义<br>     SUID权限设定：<br>     chmod u+s FILE…<br>     chmod 4xxx FILE<br>     chmod u-s FILE…</p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/27.PNG" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"> # 4.4.2、特殊权限SGID
+ 二进制的可执行文件上SGID权限功能：
+ 1）、任何一个可执行程序文件能不能启动为进程：取决发起者对程序文件是否拥有执行权限
+ 2）、启动为进程之后，其进程的属组为原程序文件的属组
+ SGID权限设定：    
+ chmod g+s FILE... 
+ chmod 2xxx FILE
+ chmod g-s FILE...    
+ 目录上的SGID权限功能：
+ 默认情况下，用户创建文件时，其属组为此用户所属的主组，一旦某目录被设定了SGID，则对此目录有写权限的用户在此目录中创建的文件所属的组为此目录的属组，
+ 通常用于创建一个协作目录    
+ SGID权限设定：
+ chmod g+s DIR...
+ chmod 2xxx DIR
+ chmod g-s DIR...     
+ # 4.4.3、特殊权限 Sticky 位
+ 具有写权限的目录通常用户可以删除该目录中的任何文件，无论该文件的权限或拥有权 在目录设置Sticky 位，只有文件的所有者或root可以删除该文件 sticky 设置在文件上无意义。
+  Sticky权限设定：
+  chmod o+t DIR...
+  chmod 1xxx DIR
+  chmod o-t DIR...
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/28.PNG" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"> # 4.4.4、特殊权限数字法
+ SUID SGID STICKY
+ 000 0
+ 001 1
+ 010 2
+ 011 3
+ 100 4
+ 101 5
+ 110 6
+ 111 7     
+ 权限位映射：
+ SUID: user,占据属主的执行权限位
+   s：属主拥有x权限  
+   S：属主没有x权限 
+ SGID: group,占据属组的执行权限位
+   s： group拥有x权限
+   S：group没有x权限  
+ Sticky: other,占据other的执行权限位  
+   t：other拥有x权限  
+   T：other没有x权限
+</code></pre></div>
+<h1 id="4-5、设定文件特殊属性"><a href="#4-5、设定文件特殊属性" class="headerlink" title="4.5、设定文件特殊属性"></a>4.5、设定文件特殊属性</h1><p>   设置文件的特殊属性，可以访问 root 用户误操作删除或修改文件不能删除，改名，更改。<br>   chattr +i file<br>   只能追加内容，不能删除，改名<br>   chattr +a file<br>   显示特定属性<br>   lsattr </p>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/29.PNG" srcset="/img/loading.gif" lazyload class="">
+<h1 id="4-6、访问控制列表-ACL"><a href="#4-6、访问控制列表-ACL" class="headerlink" title="4.6、访问控制列表 ACL"></a>4.6、访问控制列表 ACL</h1><div class="code-wrapper"><pre><code class="hljs"> # 4.6.1、ACL权限功能
+ ACL：Access Control List，实现灵活的权限管理除了文件的所有者，所属组和其它人，可以对更多的用户设置权限。
+ ACL生效顺序：所有者，自定义用户，所属组|自定义组，其他人。
+ # 4.6.2、ACL相关命令
+ setfacl  可设置ACL权限
+ getfacl  可查看设置的ACL权限
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/30.PNG" srcset="/img/loading.gif" lazyload class="">
+<div class="code-wrapper"><pre><code class="hljs"> mask权限
+ 1）、mask只影响除所有者和other的之外的人和组的最大权限
+ 2）、mask需要与用户的权限进行逻辑与运算后，才能变成有限的权限(Eﬀective  Permission)
+ 3）、用户或组的设置必须存在于mask权限设定范围内才会生效    
+ setfacl  -m mask::rx  file
+</code></pre></div>
+<img src="/2022/08/01/%E6%96%87%E4%BB%B6%E4%BB%A5%E5%8F%8A%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/31.PNG" srcset="/img/loading.gif" lazyload class="">     
+<div class="code-wrapper"><pre><code class="hljs"> --set选项会把原有的ACL项都删除，用新的替代，需要注意的是一定要包含UGO的设置，不能象-m一样只是添加ACL就可以
+ 举例：setfacl --set u::rw,u:hp:rw,g::r,o::- f1.txt
+</code></pre></div>
+<span id="more"></span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Linux%E5%AD%A6%E4%B9%A0/">Linux学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux%E5%9F%BA%E7%A1%80/">Linux基础</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均为h13007所编写，且采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/08/%E6%96%87%E6%9C%AC%E7%BC%96%E8%BE%91%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">文本编辑器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/01/FHS%E7%BB%93%E6%9E%84%E7%AE%80%E8%BF%B0/">
+                        <span class="hidden-mobile">FHS结构简述</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+  <script defer src="/js/leancloud.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
